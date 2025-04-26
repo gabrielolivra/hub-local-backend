@@ -27,6 +27,6 @@ export class Location {
   @Column({ name: 'state', type: 'text' })
   state: string;
 
-  @ManyToOne(() => Company, (company) => company.locais, { nullable: false })
+  @ManyToOne(() => Company, (company) => company.location, { nullable: false })
   company: Company;
 }

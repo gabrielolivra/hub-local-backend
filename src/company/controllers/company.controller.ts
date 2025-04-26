@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { CompanyService } from '../services/company.service';
 import { Company } from '../entity/company.entity';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
@@ -11,18 +20,15 @@ export class CompanyController {
 
   @Get('')
   @UseGuards(AuthGuard)
-  async getAllCompanies(
-    @CurrentUser() user: ICurrentUser,
-  ): Promise<Company[]> {
+  async getAllCompanies(@CurrentUser() user: ICurrentUser): Promise<Company[]> {
     return await this.companyService.getAllCompanies(user);
   }
-
 
   @Post('')
   @UseGuards(AuthGuard)
   async createCompany(
     @Body() company: CreateCompanyDto,
-    @CurrentUser() user: ICurrentUser, 
+    @CurrentUser() user: ICurrentUser,
   ): Promise<Company> {
     return await this.companyService.createCompany(company, user);
   }

@@ -25,6 +25,6 @@ export class Company {
   @ManyToOne(() => Users, (user) => user.companies, { nullable: false })
   user: Users;
 
-  @OneToMany(() => Location, (local) => local.company)
-  locais: Location[];
+  @OneToMany(() => Location, (location) => location.company)
+  location: Location[];
 }

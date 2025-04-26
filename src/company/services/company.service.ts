@@ -13,27 +13,29 @@ export class CompanyService {
     private companyRepository: Repository<Company>,
   ) {}
 
-  async createCompany(company: CreateCompanyDto, user: ICurrentUser): Promise<Company> {
+  async createCompany(
+    company: CreateCompanyDto,
+    user: ICurrentUser,
+  ): Promise<Company> {
     const verifyCnpjCompany = await this.companyRepository.findOne({
-      relations: { locais: true },
+      relations: { location: true },
       where: { cnpj: company.cnpj, user: { id: user.sub } },
     });
 
-    if(verifyCnpjCompany) {
-      throw new BadRequestException('CNPJ já cadastrado')
+    if (verifyCnpjCompany) {
+      throw new BadRequestException('CNPJ is already registered');
     }
 
     return this.companyRepository.save({
       ...company,
-     user: {id: user.sub}
+      user: { id: user.sub },
     });
-   
   }
 
   async getAllCompanies(user: ICurrentUser): Promise<Company[]> {
     console.log(user.sub);
     return this.companyRepository.find({
-      where: { user:{id: user.sub} },
+      where: { user: { id: user.sub } },
     });
   }
 
@@ -43,7 +45,7 @@ export class CompanyService {
     user: ICurrentUser,
   ): Promise<Company> {
     const companyToUpdate = await this.companyRepository.findOne({
-      where: { id , user:{ id: user.sub } },
+      where: { id, user: { id: user.sub } },
     });
 
     if (!companyToUpdate) {
@@ -67,5 +69,4 @@ export class CompanyService {
 
     await this.companyRepository.delete(id);
   }
-
 }
