@@ -35,9 +35,6 @@ export class CreateLocationDto {
 }
 
 export class UpdateLocationDto {
-  @IsNotEmpty()
-  @IsString()
-  id: string;
 
   @IsNotEmpty()
   @IsString()

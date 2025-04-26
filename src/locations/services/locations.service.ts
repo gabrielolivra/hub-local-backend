@@ -24,6 +24,7 @@ export class LocationsService {
   }
 
   async createLocation(location: CreateLocationDto): Promise<Location> {
+    console.log(location);
     const verifyCompany = await this.companyRepository.findOne({
       where: { id: location.companyId },
     });
@@ -31,7 +32,10 @@ export class LocationsService {
       throw new BadRequestException('Company not found');
     }
 
-    return this.locationsRepository.save(location);
+    return this.locationsRepository.save({
+      ...location,
+      company: verifyCompany,
+    });
   }
 
   async updateLocation(
