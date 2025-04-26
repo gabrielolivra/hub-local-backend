@@ -24,6 +24,7 @@ import { LocationsModule } from './locations/locations.module';
       entities: ['dist/**/*.entity{.ts,.js}'],
       migrationsTableName: 'migrations',
       synchronize: false,
+      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
     }),
     AuthModule,
     UsersModule,
