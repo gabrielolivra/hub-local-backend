@@ -18,12 +18,12 @@ export class CompanyService {
     user: ICurrentUser,
   ): Promise<Company> {
     const verifyCnpjCompany = await this.companyRepository.findOne({
-      relations: { location: true },
-      where: { cnpj: company.cnpj, user: { id: user.sub } },
+      relations: { location: true},
+      where: { cnpj: company.cnpj },
     });
 
     if (verifyCnpjCompany) {
-      throw new BadRequestException('CNPJ is already registered');
+      throw new BadRequestException('CNPJ is already registered in the system');
     }
 
     return this.companyRepository.save({
@@ -33,7 +33,7 @@ export class CompanyService {
   }
 
   async getAllCompanies(user: ICurrentUser): Promise<Company[]> {
-    console.log(user.sub);
+    
     return this.companyRepository.find({
       where: { user: { id: user.sub } },
     });
