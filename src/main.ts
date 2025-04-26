@@ -10,7 +10,7 @@ async function bootstrap() {
     credentials: true,
   });
   app.setGlobalPrefix('api');
-  app.useGlobalInterceptors()
+  app.useGlobalInterceptors();
   await app.listen(process.env.PORT ?? 3001);
 }
 bootstrap();

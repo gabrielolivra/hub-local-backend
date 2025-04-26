@@ -9,6 +9,4 @@ export class LocationsService {
     @InjectRepository(Location)
     private locationsRepository: Repository<Location>,
   ) {}
-
-
 }
