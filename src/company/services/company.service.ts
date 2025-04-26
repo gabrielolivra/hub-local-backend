@@ -15,7 +15,8 @@ export class CompanyService {
 
   async createCompany(company: CreateCompanyDto, user: ICurrentUser): Promise<Company> {
     const verifyCnpjCompany = await this.companyRepository.findOne({
-      where: { cnpj: company.cnpj, user: user.sub as unknown as Users },
+      relations: { locais: true },
+      where: { cnpj: company.cnpj, user: { id: user.sub } },
     });
 
     if(verifyCnpjCompany) {
@@ -24,14 +25,15 @@ export class CompanyService {
 
     return this.companyRepository.save({
       ...company,
-     user: user.sub as unknown as Users,
+     user: {id: user.sub}
     });
    
   }
 
   async getAllCompanies(user: ICurrentUser): Promise<Company[]> {
+    console.log(user.sub);
     return this.companyRepository.find({
-      where: { user: user.sub as unknown as Users },
+      where: { user:{id: user.sub} },
     });
   }
 
@@ -41,7 +43,7 @@ export class CompanyService {
     user: ICurrentUser,
   ): Promise<Company> {
     const companyToUpdate = await this.companyRepository.findOne({
-      where: { id , user: user.sub as unknown as Users},
+      where: { id , user:{ id: user.sub } },
     });
 
     if (!companyToUpdate) {
@@ -56,7 +58,7 @@ export class CompanyService {
 
   async deleteCompany(id: string, user: ICurrentUser): Promise<void> {
     const companyToDelete = await this.companyRepository.findOne({
-      where: { id, user: user.sub as unknown as Users },
+      where: { id, user: { id: user.sub } },
     });
 
     if (!companyToDelete) {

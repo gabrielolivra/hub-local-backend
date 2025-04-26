@@ -15,11 +15,15 @@ export class CreateCompanyDto {
 }
 
 export class UpdateCompanyDto {
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
-    name?: string;
+    name: string;
 
-    @IsOptional()
+    @IsNotEmpty()
     @IsString()
-    description?: string;
+    website: string;
+
+    @IsNotEmpty()
+    @IsString()
+    cnpj: string;
 }
