@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import 'dotenv/config';
+import { ValidationPipe } from '@nestjs/common';
+import { AppDataSource } from './data-source';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,7 +12,12 @@ async function bootstrap() {
     credentials: true,
   });
   app.setGlobalPrefix('api');
-  app.useGlobalInterceptors()
+  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors();
   await app.listen(process.env.PORT ?? 3001);
+  await AppDataSource.initialize()
+  await AppDataSource.runMigrations();
+  console.log(`Application is running on: ${await app.getUrl()}`);
+  console.log(`Database is running on: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
 }
 bootstrap();
