@@ -32,7 +32,7 @@ export class LocationsController {
     return this.locationsService.updateLocation(id, location);
   }
 
-  @Delete('/delete/:id')
+  @Delete('/:id')
   @UseGuards(AuthGuard)
   async deleteLocation(
     @Param('id') id: string,

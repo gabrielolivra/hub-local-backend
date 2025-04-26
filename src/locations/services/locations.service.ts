@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Location } from '../entity/locations.entity';
@@ -28,7 +28,7 @@ export class LocationsService {
       where: { id: location.companyId },
     });
     if (!verifyCompany) {
-      throw new Error('Company not found');
+      throw new BadRequestException('Company not found');
     }
 
     return this.locationsRepository.save(location);
@@ -42,7 +42,7 @@ export class LocationsService {
       where: { id },
     });
     if (!locationToUpdate) {
-      throw new Error('Location not found');
+      throw new BadRequestException('Location not found');
     }
      await this.locationsRepository.update(id, {
       ...location,
@@ -57,7 +57,7 @@ export class LocationsService {
       where: { id },
     });
     if (!locationToDelete) {
-      throw new Error('Location not found');
+      throw new BadRequestException('Location not found');
     }
     await this.locationsRepository.delete(id);
   }
