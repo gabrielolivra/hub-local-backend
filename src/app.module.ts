@@ -25,6 +25,7 @@ import { LocationsModule } from './locations/locations.module';
       migrationsTableName: 'migrations',
       synchronize: false,
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      migrationsRun: true,
     }),
     AuthModule,
     UsersModule,
