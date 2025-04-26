@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/auth/migrations/*.js'],
   migrationsTableName: 'migrations',
-  synchronize: false,
-  ssl:true,
-  logging: true,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
