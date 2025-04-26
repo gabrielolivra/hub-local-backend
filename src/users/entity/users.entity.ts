@@ -1,32 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Company } from '../../company/entity/company.entity';
 
-@Entity({name:'users'})
+@Entity({ name: 'users' })
 export class Users {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({name:'firstName'})
-  firstName: string;
+  @Column({ name: 'name', nullable: false })
+  name: string;
 
-  @Column({name:'lastName'})
-  lastName: string;
-
-  @Column({name:'username'})
-  username: string;
-  
   @Column({
-    name:'email',
-    unique: true 
-     })
+    name: 'email',
+    unique: true,
+    nullable: false,
+  })
   email: string;
 
-  @Column({name:'password'})
+  @Column({ name: 'password', nullable: false })
   password: string;
 
-  @Column({name:'isActive', default: true})
-  isActive: boolean;
-
-  @Column({name:'created_at', default: () => 'CURRENT_TIMESTAMP'})
-  createdAt: Date;
-
+  @OneToMany(() => Company, (company) => company.user)
+  companies: Company[];
 }

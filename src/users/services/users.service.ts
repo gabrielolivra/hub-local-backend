@@ -30,12 +30,11 @@ export class UsersService {
    return {
     ...user,   
      id: user.id,
-    username: user.username,
     email: user.email,
    };
   }
 
-  async findOne(username:string){
-    return await this.usersRepository.find({where:{username}});
+  async findOne(email:string){
+    return await this.usersRepository.find({where:{email}});
   }
 }
