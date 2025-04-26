@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import 'dotenv/config';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -11,7 +13,5 @@ export const AppDataSource = new DataSource({
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/auth/migrations/*.js'],
   migrationsTableName: 'migrations',
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
 });
