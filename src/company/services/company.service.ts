@@ -36,6 +36,7 @@ export class CompanyService {
     
     return this.companyRepository.find({
       where: { user: { id: user.sub } },
+      relations: { location: true },
     });
   }
 
