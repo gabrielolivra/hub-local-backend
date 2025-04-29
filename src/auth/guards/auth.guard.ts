@@ -23,6 +23,8 @@ export class AuthGuard implements CanActivate {
         secret: process.env.PRIVATE_KEY,
       });
 
+      console.log(payload)
+
       request['user'] = payload;
     } catch {
       throw new UnauthorizedException();
