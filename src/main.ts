@@ -17,7 +17,5 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3001);
   await AppDataSource.initialize()
   await AppDataSource.runMigrations();
-  console.log(`Application is running on: ${await app.getUrl()}`);
-  console.log(`Database is running on: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
 }
 bootstrap();

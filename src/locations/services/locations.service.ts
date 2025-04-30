@@ -24,7 +24,6 @@ export class LocationsService {
   }
 
   async createLocation(location: CreateLocationDto): Promise<Location> {
-    console.log(location);
     const verifyCompany = await this.companyRepository.findOne({
       where: { id: location.companyId },
     });
