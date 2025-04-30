@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateLocationDto {
   @IsNotEmpty()
@@ -35,7 +35,6 @@ export class CreateLocationDto {
 }
 
 export class UpdateLocationDto {
-
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -51,7 +50,7 @@ export class UpdateLocationDto {
   @IsNotEmpty()
   @IsString()
   number: string;
-  
+
   @IsNotEmpty()
   @IsString()
   district: string;
@@ -63,5 +62,4 @@ export class UpdateLocationDto {
   @IsNotEmpty()
   @IsString()
   state: string;
-
 }

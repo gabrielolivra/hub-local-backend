@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../entity/company.entity';
-import { Users } from 'src/users/entity/users.entity';
 import { CreateCompanyDto } from '../controllers/dtos/company.dto';
 import { ICurrentUser } from 'src/decorators/current-user';
 import { Location } from 'src/locations/entity/locations.entity';
@@ -20,7 +19,7 @@ export class CompanyService {
     user: ICurrentUser,
   ): Promise<Company> {
     const verifyCnpjCompany = await this.companyRepository.findOne({
-      relations: { location: true},
+      relations: { location: true },
       where: { cnpj: company.cnpj },
     });
 
@@ -35,7 +34,6 @@ export class CompanyService {
   }
 
   async getAllCompanies(user: ICurrentUser): Promise<Company[]> {
-    
     return this.companyRepository.find({
       where: { user: { id: user.sub } },
       relations: { location: true },
@@ -64,14 +62,16 @@ export class CompanyService {
   async deleteCompany(id: string, user: ICurrentUser): Promise<void> {
     const [companyToDelete] = await this.companyRepository.find({
       where: { id, user: { id: user.sub } },
-       relations: { location: true },
+      relations: { location: true },
     });
 
     if (!companyToDelete) {
       throw new BadRequestException('Company not found');
     }
-    if(companyToDelete.location.length > 0 ){
-      const locationIds = companyToDelete.location.map(location => location.id);
+    if (companyToDelete.location.length > 0) {
+      const locationIds = companyToDelete.location.map(
+        (location) => location.id,
+      );
       await this.locationRepository.delete(locationIds);
     }
 

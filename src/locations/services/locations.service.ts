@@ -2,7 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Location } from '../entity/locations.entity';
-import { CreateLocationDto, UpdateLocationDto } from '../controllers/dtos/locations.dto';
+import {
+  CreateLocationDto,
+  UpdateLocationDto,
+} from '../controllers/dtos/locations.dto';
 import { Company } from 'src/company/entity/company.entity';
 
 @Injectable()
@@ -12,14 +15,13 @@ export class LocationsService {
     private locationsRepository: Repository<Location>,
     @InjectRepository(Company)
     private companyRepository: Repository<Company>,
-  
   ) {}
 
   async getAllLocations(id: string): Promise<Location[]> {
     return this.locationsRepository.find({
-    relations: { company: true },
-    order: { name: 'ASC' },
-    where: { company: { id } },
+      relations: { company: true },
+      order: { name: 'ASC' },
+      where: { company: { id } },
     });
   }
 
@@ -40,14 +42,14 @@ export class LocationsService {
   async updateLocation(
     id: string,
     location: Partial<UpdateLocationDto>,
-  ): Promise<null|Location> {
+  ): Promise<null | Location> {
     const locationToUpdate = await this.locationsRepository.findOne({
       where: { id },
     });
     if (!locationToUpdate) {
       throw new BadRequestException('Location not found');
     }
-     await this.locationsRepository.update(id, {
+    await this.locationsRepository.update(id, {
       ...location,
     });
     return await this.locationsRepository.findOne({
@@ -64,5 +66,4 @@ export class LocationsService {
     }
     await this.locationsRepository.delete(id);
   }
-
 }

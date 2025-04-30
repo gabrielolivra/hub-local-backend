@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { LocationsService } from '../services/locations.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { CreateLocationDto, UpdateLocationDto } from './dtos/locations.dto';
@@ -9,17 +18,13 @@ export class LocationsController {
 
   @Get('/:id')
   @UseGuards(AuthGuard)
-  async getAllLocations(
-    @Param('id') id: string,
-  ) {
+  async getAllLocations(@Param('id') id: string) {
     return this.locationsService.getAllLocations(id);
   }
 
   @Post('')
   @UseGuards(AuthGuard)
-  async createLocation(
-    @Body() location: CreateLocationDto,
-  ) {
+  async createLocation(@Body() location: CreateLocationDto) {
     return this.locationsService.createLocation(location);
   }
 
@@ -34,10 +39,7 @@ export class LocationsController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  async deleteLocation(
-    @Param('id') id: string,
-  ) {
+  async deleteLocation(@Param('id') id: string) {
     return this.locationsService.deleteLocation(id);
   }
-
 }
