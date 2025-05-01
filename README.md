@@ -12,8 +12,6 @@ Este é o backend do projeto **Hub Local**, desenvolvido com [NestJS](https://ne
 
 ### Rodar o projeto
 
-### Preencha as .envs
-
 ### Docker Compose
 
 ```bash 
@@ -63,10 +61,6 @@ pnpm migration:revert
 ```bash
 pnpm migration:show
 ```
-
-> ⚠️ Todas as operações usam o arquivo `src/data-source.ts` como fonte de configuração do TypeORM.
-
----
 
 ## Lint e formatação
 
