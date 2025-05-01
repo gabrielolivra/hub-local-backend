@@ -2,13 +2,13 @@
 
 Este é o backend do projeto **Hub Local**, desenvolvido com [NestJS](https://nestjs.com/) e [TypeORM](https://typeorm.io/) com suporte a PostgreSQL.
 
-## 📆 Requisitos
+## Requisitos
 
 - Node.js (versão compatível com o NestJS)
 - pnpm (utilizado como gerenciador de pacotes)
 - Banco de dados PostgreSQL
 
-## 🚀 Scripts disponíveis
+## Scripts disponíveis
 
 ### Rodar o projeto
 
